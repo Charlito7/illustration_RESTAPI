@@ -10,4 +10,6 @@ public interface ICategoryService {
     Boolean DeleteByName(String name);
     CategoryModel GetByName(String category);
     List<CategoryModel> GetAll();
+
+    Boolean DeleteById(Long id);
 }

@@ -5,12 +5,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemModel {
+    private Long id;
     @NotBlank
     private String name;
     private String description;
@@ -22,7 +25,9 @@ public class ItemModel {
     @NotBlank
     private String author;
     private String credit;
-    @NotBlank
+    @Enumerated(EnumType.STRING)
     private Language language;
     private String isbn;
+
+    private String categoryName;
 }

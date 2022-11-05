@@ -2,7 +2,6 @@ package com.illustration_api.illustration_api.Infrastructure.Services.Category;
 
 import com.illustration_api.illustration_api.Core.Application.Common.Constants.RequestMethod;
 import com.illustration_api.illustration_api.Core.Application.Common.Interfaces.Category.ICategoryService;
-import com.illustration_api.illustration_api.Core.Application.Common.Interfaces.Mappings.Category.IMapCategoryModelToCategoryEntity;
 import com.illustration_api.illustration_api.Core.Application.Common.Models.Category.CategoryModel;
 import com.illustration_api.illustration_api.Core.Application.Repository.ICategoryRepository;
 import com.illustration_api.illustration_api.Core.Domain.Entities.CategoryEntity;
@@ -20,8 +19,6 @@ public class CategoryService implements ICategoryService {
 
     @Autowired
     private ICategoryRepository _repository;
-    @Autowired
-    private IMapCategoryModelToCategoryEntity mapCategoryModelToCategoryEntity;
     @Override
     public CategoryModel Create(CategoryModel model) {
 
@@ -68,7 +65,18 @@ public class CategoryService implements ICategoryService {
 
         return result != null ? true : false;
     }
+    @Override
+    public Boolean DeleteById(Long id) {
+        //check if the category exist
+        var category =_repository.findById(id).get();
+        if(category == null){
+            return false;
+        }
+        category.setIsDelete(true);
+        var result = _repository.save(category);
 
+        return result != null ? true : false;
+    }
     @Override
     public CategoryModel GetByName(String category) {
 
@@ -93,6 +101,8 @@ public class CategoryService implements ICategoryService {
                 .collect(Collectors.toList());
         return req;
     }
+
+
 
     private CategoryModel convert(CategoryEntity entity){
         CategoryModel categoryModel = new CategoryModel();

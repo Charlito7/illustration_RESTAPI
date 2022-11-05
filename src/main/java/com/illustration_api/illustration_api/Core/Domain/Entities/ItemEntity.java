@@ -18,6 +18,7 @@ import javax.persistence.*;
 @Table(name = "item")
 public class ItemEntity extends AuditableEntity {
     @Id
+    @GeneratedValue
     private Long id;
     @Column(nullable =false)
     private String name;
@@ -31,13 +32,14 @@ public class ItemEntity extends AuditableEntity {
     private Language language;
     private String isbn;
     private Boolean isVisible;
+    private Boolean isDelete;
 
     @OneToOne
     @JoinColumn(name = "itemsInfo_id")
     private ItemInfoEntity itemsInfo;
 
     @ManyToOne
-    @JoinColumn(name="library_id")
+    @JoinColumn(name="category_id")
     private CategoryEntity category;
 
 }

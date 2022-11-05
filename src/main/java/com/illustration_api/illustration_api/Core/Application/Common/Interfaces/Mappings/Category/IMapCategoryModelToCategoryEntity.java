@@ -4,6 +4,7 @@ import com.illustration_api.illustration_api.Core.Application.Common.Models.Cate
 import com.illustration_api.illustration_api.Core.Domain.Entities.CategoryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -11,7 +12,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+/*
+@Mapper
 public interface IMapCategoryModelToCategoryEntity {
-    void updateCustomerFromDto(List<CategoryEntity> category, @MappingTarget List<CategoryModel> model);
+    IMapCategoryModelToCategoryEntity INSTANCE = Mappers.getMapper(IMapCategoryModelToCategoryEntity.class);
+    CategoryModel CategoryEntityToCategoryModel(CategoryEntity category);
+    CategoryEntity CategoryModelToCategoryEntity(CategoryModel category);
 }
+*/

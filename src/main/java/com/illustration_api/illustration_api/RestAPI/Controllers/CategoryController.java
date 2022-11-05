@@ -41,9 +41,16 @@ public class CategoryController {
                 ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
-    @DeleteMapping("/Category/Delete/{name}")
+    @DeleteMapping("/Category/DeleteByName/{name}")
     public ResponseEntity<String> deleteByName(@PathVariable("name") String name){
         var result = _service.DeleteByName(name);
+
+        return  !result ? ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not deleted"):
+                ResponseEntity.status(HttpStatus.OK).body("Successfully");
+    }
+    @DeleteMapping("/Category/DeleteById/{name}")
+    public ResponseEntity<String> deleteById(@PathVariable("id") Long id){
+        var result = _service.DeleteById(id);
 
         return  !result ? ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not deleted"):
                 ResponseEntity.status(HttpStatus.OK).body("Successfully");
@@ -51,6 +58,7 @@ public class CategoryController {
 
     @PutMapping("/Category/Update/{id}")
     public ResponseEntity<String> update(@PathVariable("id") Long id, @RequestBody CategoryModel model){
+        model.setId(id);
         var result = _service.Update(model);
 
         return  !result ? ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not updated"):
