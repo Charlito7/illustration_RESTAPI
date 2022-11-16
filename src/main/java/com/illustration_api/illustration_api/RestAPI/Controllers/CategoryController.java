@@ -2,6 +2,7 @@ package com.illustration_api.illustration_api.RestAPI.Controllers;
 
 import com.illustration_api.illustration_api.Core.Application.Common.Interfaces.Category.ICategoryService;
 import com.illustration_api.illustration_api.Core.Application.Common.Models.Category.CategoryModel;
+import com.illustration_api.illustration_api.Core.Application.Common.Models.ServiceResult.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,36 +18,31 @@ public class CategoryController {
     private ICategoryService _service;
 
     @PostMapping("/Category/Create")
-    public ResponseEntity<String> save(@Valid @RequestBody CategoryModel model){
+    public ServiceResult save(@Valid @RequestBody CategoryModel model){
         // validation
         var result = _service.Create(model);
 
-
-        return result == null ? ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not created"):
-                ResponseEntity.status(HttpStatus.OK).body("Successfully");
+        return result;
     }
 
     @GetMapping("/Category/List")
-    public ResponseEntity<List<CategoryModel>> fetchList(){
+    public ServiceResult<List<CategoryModel>> fetchList(){
 
         var result = _service.GetAll();
-        return ResponseEntity.status(HttpStatus.OK).body(result);
+        return result;
     }
 
     @GetMapping("/Category/GetBy/{name}")
-    public ResponseEntity<CategoryModel> fetchByName(@PathVariable("name") String name) {
+    public ServiceResult<CategoryModel> fetchByName(@PathVariable("name") String name) {
         var result = _service.GetByName(name);
-
-    return result == null ? ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null):
-                ResponseEntity.status(HttpStatus.OK).body(result);
+        return result;
     }
 
     @DeleteMapping("/Category/DeleteByName/{name}")
-    public ResponseEntity<String> deleteByName(@PathVariable("name") String name){
+    public ServiceResult deleteByName(@PathVariable("name") String name){
         var result = _service.DeleteByName(name);
 
-        return  !result ? ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not deleted"):
-                ResponseEntity.status(HttpStatus.OK).body("Successfully");
+        return  result;
     }
     @DeleteMapping("/Category/DeleteById/{name}")
     public ResponseEntity<String> deleteById(@PathVariable("id") Long id){
@@ -57,11 +53,10 @@ public class CategoryController {
     }
 
     @PutMapping("/Category/Update/{id}")
-    public ResponseEntity<String> update(@PathVariable("id") Long id, @RequestBody CategoryModel model){
+    public ServiceResult  update(@PathVariable("id") Long id, @RequestBody CategoryModel model){
         model.setId(id);
         var result = _service.Update(model);
 
-        return  !result ? ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Not updated"):
-                ResponseEntity.status(HttpStatus.OK).body("Successfully");
+        return result;
     }
 }
