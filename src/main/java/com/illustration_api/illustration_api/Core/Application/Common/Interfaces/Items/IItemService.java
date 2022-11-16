@@ -2,14 +2,18 @@ package com.illustration_api.illustration_api.Core.Application.Common.Interfaces
 
 
 import com.illustration_api.illustration_api.Core.Application.Common.Models.Item.ItemModel;
+import com.illustration_api.illustration_api.Core.Application.Common.Models.ServiceResult.ServiceResult;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface IItemService {
-    Boolean Create(ItemModel model);
-    Boolean Update(ItemModel model);
-    Boolean DeleteById(Long id);
-    List<ItemModel> GetAllByCategory(String category);
-    List<ItemModel> GetAll();
-    ItemModel GetByName(String name);
+    ServiceResult Create(ItemModel model);
+    ServiceResult Update(ItemModel model);
+    ServiceResult DeleteById(Long id);
+    ServiceResult<List<ItemModel>> GetAllByCategory(String category);
+    ServiceResult<List<ItemModel>> GetAll();
+    ServiceResult<ItemModel> GetByName(String name);
+
+    Page<ItemModel> FindPaginated(int page, int size);
 }
