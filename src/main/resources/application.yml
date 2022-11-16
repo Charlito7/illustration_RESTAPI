@@ -13,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: admin
     url: jdbc:mysql://localhost:3306/illustrationDB
-    password: '@Pbax643#'
+    password: '@Password'
   jpa:
     hibernate:
       ddl-auto: update
