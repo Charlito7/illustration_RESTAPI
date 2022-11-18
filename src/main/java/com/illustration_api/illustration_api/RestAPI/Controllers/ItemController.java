@@ -44,7 +44,7 @@ public class ItemController {
     }
 
     @GetMapping("/Item/GetBy/{name}")
-    public ServiceResult<ItemModel> fetchByName(@PathVariable("name") String name) {
+    public ServiceResult<List<ItemModel>> fetchByName(@PathVariable("name") String name) {
         var result = _service.GetByName(name);
 
         return result;

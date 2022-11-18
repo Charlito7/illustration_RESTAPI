@@ -16,5 +16,15 @@ public interface IItemRepository extends JpaRepository<ItemEntity, Long> {
             value = "SELECT * FROM ITEM u WHERE u.category_id = ?1",
             nativeQuery = true)
     List<ItemEntity> findByCategory(Long category_id);
-    ItemEntity findByName(String name);
+
+    @Query(
+            value = "SELECT * FROM ITEM u WHERE u.name LIKE %?1% " +
+                    "UNION ALL " +
+                    "SELECT * FROM ITEM u WHERE u.tags LIKE %?1% " +
+                    "UNION ALL " +
+                    "SELECT * FROM ITEM u WHERE u.description LIKE %?1%",
+            nativeQuery = true)
+    List<ItemEntity> findByName(String name);
+
+
 }

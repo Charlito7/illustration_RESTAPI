@@ -151,18 +151,22 @@ public class ItemService implements IItemService {
     }
 
     @Override
-    public ServiceResult<ItemModel> GetByName(String name) {
-        System.out.println("Hello test");
+    public ServiceResult<List<ItemModel>> GetByName(String name) {
         var response = new ServiceResult();
-        var entity = _repository.findByName(name);
-        //var entity = _repository.Search(name);
+
+        var entity = _repository.findByName(name)
+                .stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
+
+
         if(entity == null){
             response.ServiceStatus(HttpStatus.NO_CONTENT, false);
             response.AddError(HttpStatus.NO_CONTENT,"Item not exist");
             return response;
         }
 
-        ItemModel itemModel = new ItemModel();
+/*        ItemModel itemModel = new ItemModel();
         itemModel.setName(entity.getName());
         itemModel.setDescription(entity.getDescription());
         itemModel.setTags(entity.getTags());
@@ -172,12 +176,12 @@ public class ItemService implements IItemService {
         itemModel.setLanguage(entity.getLanguage());
         itemModel.setIsbn(entity.getIsbn());
         itemModel.setPath(entity.getPath());
-        itemModel.setCategoryName(entity.getCategory().getName());
+        itemModel.setCategoryName(entity.getCategory().getName());*/
 
-        ServiceResult<ItemModel> responseItem = new ServiceResult<ItemModel>(itemModel);
+        ServiceResult<List<ItemModel>> responseItem = new ServiceResult<List<ItemModel>>(entity);
         responseItem.ServiceStatus(HttpStatus.OK, true);
 
-        return response;
+        return responseItem;
     }
 
     @Override

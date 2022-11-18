@@ -13,7 +13,7 @@ public interface IItemService {
     ServiceResult DeleteById(Long id);
     ServiceResult<List<ItemModel>> GetAllByCategory(String category);
     ServiceResult<List<ItemModel>> GetAll();
-    ServiceResult<ItemModel> GetByName(String name);
+    ServiceResult<List<ItemModel>> GetByName(String name);
 
     Page<ItemModel> FindPaginated(int page, int size);
 }
