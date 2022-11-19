@@ -19,9 +19,9 @@ public interface IItemRepository extends JpaRepository<ItemEntity, Long> {
 
     @Query(
             value = "SELECT * FROM ITEM u WHERE u.name LIKE %?1% " +
-                    "UNION ALL " +
+                    "UNION " +
                     "SELECT * FROM ITEM u WHERE u.tags LIKE %?1% " +
-                    "UNION ALL " +
+                    "UNION " +
                     "SELECT * FROM ITEM u WHERE u.description LIKE %?1%",
             nativeQuery = true)
     List<ItemEntity> findByName(String name);
