@@ -23,6 +23,7 @@ public class CategoryService implements ICategoryService {
     @Autowired
     private ICategoryRepository _repository;
 
+
     @Override
     public ServiceResult Create(CategoryModel model) {
 
@@ -145,6 +146,19 @@ public class CategoryService implements ICategoryService {
 
         return response;
     }
+
+ /*   public List<CategoryModel> GetSpecification(String name, String description) {
+        //check if the category exist
+        var cat =
+        var category =_repository.findById(id).get();
+        if(category == null){
+            return false;
+        }
+        category.setIsDelete(true);
+        var result = _repository.save(category);
+
+        return result != null ? true : false;
+    }*/
 
 
 
