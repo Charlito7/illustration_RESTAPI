@@ -1,17 +1,13 @@
 package com.illustration_api.illustration_api.RestAPI.Controllers;
 
-import com.illustration_api.illustration_api.Core.Application.Common.Interfaces.Items.IItemService;
-import com.illustration_api.illustration_api.Core.Application.Common.Models.Item.ItemModel;
+import com.illustration_api.illustration_api.Infrastructure.Interfaces.Services.Items.IItemService;
 import com.illustration_api.illustration_api.Core.Application.Common.Models.Item.ItemModel;
 import com.illustration_api.illustration_api.Core.Application.Common.Models.ServiceResult.ServiceResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 

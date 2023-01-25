@@ -26,4 +26,7 @@ public class CategoryEntity extends AuditableEntity {
 
     @OneToMany(mappedBy = "category")
     private List<ItemEntity> items;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "history")
+    private List<ItemEntity> histories;
 }

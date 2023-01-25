@@ -1,4 +1,4 @@
-package com.illustration_api.illustration_api.Core.Application.Common.Models.Category;
+package com.illustration_api.illustration_api.Core.Application.Common.Models.Requests.Category;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CategoryModel {
+public class CategoryRequest {
     private Long id;
     @NotBlank
     private String name;

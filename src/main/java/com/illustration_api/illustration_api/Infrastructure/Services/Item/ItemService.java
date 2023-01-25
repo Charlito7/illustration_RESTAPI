@@ -1,13 +1,12 @@
 package com.illustration_api.illustration_api.Infrastructure.Services.Item;
 
-import com.illustration_api.illustration_api.Core.Application.Common.Interfaces.Items.IItemService;
-import com.illustration_api.illustration_api.Core.Application.Common.Models.Category.CategoryModel;
+import com.illustration_api.illustration_api.Infrastructure.Interfaces.Services.Items.IItemService;
 import com.illustration_api.illustration_api.Core.Application.Common.Models.Item.ItemModel;
 import com.illustration_api.illustration_api.Core.Application.Common.Models.ServiceResult.ServiceResult;
 import com.illustration_api.illustration_api.Core.Application.Repository.ICategoryRepository;
 import com.illustration_api.illustration_api.Core.Application.Repository.IItemRepository;
-import com.illustration_api.illustration_api.Core.Domain.Entities.CategoryEntity;
 import com.illustration_api.illustration_api.Core.Domain.Entities.ItemEntity;
+import com.illustration_api.illustration_api.Infrastructure.Interfaces.Repositories.History.IHistoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Sort;
@@ -25,23 +24,31 @@ public class ItemService implements IItemService {
     @Autowired
     private ICategoryRepository _categoryRepository;
 
+    @Autowired
+    private IHistoryRepository _historyRepository;
+
+
     @Override
     public ServiceResult Create(ItemModel model) {
 
         //recuperate category
         var category = _categoryRepository.findByName(model.getCategoryName());
 
+        //recuperate history
+        var history = _historyRepository.findById(model.getHistoryId());
+
         ItemEntity item = new ItemEntity();
         item.setName(model.getName());
         item.setDescription(model.getDescription());
         item.setTags(model.getTags());
-        item.setCoverPath(model.getCoverPath());
-        item.setAuthor(model.getAuthor());
-        item.setCredit(model.getCredit());
-        item.setLanguage(model.getLanguage());
-        item.setIsbn(model.getIsbn());
+        item.setType(model.getType());
+        item.setSize(model.getSize());
+        item.setExtension(model.getExtension());
         item.setPath(model.getPath());
+        item.setPosition(model.getPosition());
+
         item.setCategory(category);
+        item.setHistory(history.get());
 
         var result = _repository.save(item);
         ServiceResult response = new ServiceResult();
@@ -70,11 +77,11 @@ public class ItemService implements IItemService {
         oldEntity.setName(model.getName());
         oldEntity.setDescription(model.getDescription());
         oldEntity.setTags(model.getTags());
-        oldEntity.setCoverPath(model.getCoverPath());
+/*        oldEntity.setCoverPath(model.getCoverPath());
         oldEntity.setAuthor(model.getAuthor());
         oldEntity.setCredit(model.getCredit());
         oldEntity.setLanguage(model.getLanguage());
-        oldEntity.setIsbn(model.getIsbn());
+        oldEntity.setIsbn(model.getIsbn());*/
         oldEntity.setPath(model.getPath());
         oldEntity.setCategory(category);
 
@@ -195,11 +202,11 @@ public class ItemService implements IItemService {
         itemModel.setName(entity.getName());
         itemModel.setDescription(entity.getDescription());
         itemModel.setTags(entity.getTags());
-        itemModel.setCoverPath(entity.getCoverPath());
+/*        itemModel.setCoverPath(entity.getCoverPath());
         itemModel.setAuthor(entity.getAuthor());
         itemModel.setCredit(entity.getCredit());
         itemModel.setLanguage(entity.getLanguage());
-        itemModel.setIsbn(entity.getIsbn());
+        itemModel.setIsbn(entity.getIsbn());*/
         itemModel.setPath(entity.getPath());
         itemModel.setCategoryName(entity.getCategory().getName());
 

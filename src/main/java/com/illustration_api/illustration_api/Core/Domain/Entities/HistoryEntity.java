@@ -10,14 +10,13 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.List;
 
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "item")
-public class ItemEntity extends AuditableEntity {
+@Table(name = "history")
+public class HistoryEntity extends AuditableEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -25,26 +24,20 @@ public class ItemEntity extends AuditableEntity {
     private String name;
     private String description;
     private String tags;
-    private String path;
-    private Integer position;
-    @Column(nullable = false)
-    private String type;
-    @Column(nullable = false)
-    private Long size;
-    @Column(nullable = false)
-    private String extension;
+    private String coverPath;
+    private String author;
+    private String credit;
+    @Enumerated(EnumType.STRING)
+    private Language language;
+    private String isbn;
     private Boolean isVisible;
     private Boolean isDelete;
 
+    @OneToMany(orphanRemoval = true, cascade = CascadeType.PERSIST,mappedBy = "history")
+    private List<ItemEntity> items;
 
     @ManyToOne
     @JoinColumn(name="category_id")
     private CategoryEntity category;
-
-    // Many to one relationship with History entity
-    @ManyToOne
-    @JoinColumn(name="history_id")
-    private HistoryEntity history;
-
 
 }

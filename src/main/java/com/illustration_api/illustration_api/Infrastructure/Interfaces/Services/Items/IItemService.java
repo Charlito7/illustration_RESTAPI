@@ -1,8 +1,9 @@
-package com.illustration_api.illustration_api.Core.Application.Common.Interfaces.Items;
+package com.illustration_api.illustration_api.Infrastructure.Interfaces.Services.Items;
 
 
 import com.illustration_api.illustration_api.Core.Application.Common.Models.Item.ItemModel;
 import com.illustration_api.illustration_api.Core.Application.Common.Models.ServiceResult.ServiceResult;
+import com.illustration_api.illustration_api.Core.Domain.Entities.ItemEntity;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -14,6 +15,6 @@ public interface IItemService {
     ServiceResult<List<ItemModel>> GetAllByCategory(String category);
     ServiceResult<List<ItemModel>> GetAll();
     ServiceResult<List<ItemModel>> GetByName(String name);
-
     Page<ItemModel> FindPaginated(int page, int size);
+
 }

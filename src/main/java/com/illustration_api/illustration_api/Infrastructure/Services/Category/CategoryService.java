@@ -30,6 +30,7 @@ public class CategoryService implements ICategoryService {
         CategoryEntity category = new CategoryEntity();
         category.setName(model.getName());
         category.setDescription(model.getDescription());
+        category.setIsDelete(false);
 
         var result = _repository.save(category);
 
